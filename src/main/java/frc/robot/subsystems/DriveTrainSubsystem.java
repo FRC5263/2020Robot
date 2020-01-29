@@ -32,16 +32,26 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private SpeedController frontRightMotor;
   private SpeedController frontLeftMotor;
   
+  private static final double wheelDiameterInches = 6.0;
+  private final static double encoderClicksPerRevolution = 360;
+
   /**
    * Creates a new DriveTrainSubsystem.
    */
-  public DriveTrainSubsystem(SpeedController backRightMotor, SpeedController backLeftMotor, SpeedController frontRightMotor, SpeedController frontLeftMotor) {
+  public DriveTrainSubsystem(SpeedController backRightMotor, SpeedController backLeftMotor, SpeedController frontRightMotor, SpeedController frontLeftMotor, Encoder backRightEncoder, Encoder backLeftEncoder, Encoder frontRightEcoder, Encoder frontLeftEncoder, AHRS navx) {
     this.backRightMotor = backRightMotor;
     this.backLeftMotor = backLeftMotor;
     this.frontLeftMotor = frontLeftMotor;
     this.frontRightMotor = frontRightMotor;
-  
+    this.backLeftEncoder = backLeftEncoder;
+    this.backRightEncoder = backRightEncoder;
+    this.frontLeftEncoder = frontLeftEncoder;
+    this.frontRightEncoder = frontRightEcoder;
+    this.navx = navx;
     this.driveTrain = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+
+    System.out.println("drivetrain subsystem intalized");
+
   
   }
 
