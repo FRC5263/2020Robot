@@ -13,12 +13,20 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
+import edu.wpi.first.wpilibj.Encoder;
+
+import com.kauailabs.navx.frc.AHRS;
+
 
 public class DriveTrainSubsystem extends SubsystemBase {
   
 
   private MecanumDrive driveTrain;
-
+  private AHRS navx;
+  private Encoder backRightEncoder;
+  private Encoder backLeftEncoder;
+  private Encoder frontRightEncoder;
+  private Encoder frontLeftEncoder;
   private SpeedController backRightMotor;
   private SpeedController backLeftMotor;
   private SpeedController frontRightMotor;
