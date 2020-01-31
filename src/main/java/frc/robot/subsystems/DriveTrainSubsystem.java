@@ -55,6 +55,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
   
   }
 
+  public DriveTrainSubsystem(SpeedController backRightMotor, SpeedController backLeftMotor, SpeedController frontRightMotor, SpeedController frontLeftMotor) {
+    this.backRightMotor = backRightMotor;
+    this.backLeftMotor = backLeftMotor;
+    this.frontLeftMotor = frontLeftMotor;
+    this.frontRightMotor = frontRightMotor;
+    this.driveTrain = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+
+    System.out.println("drivetrain subsystem intalized");
+
+  
+  }
+
   public void drive(double ySpeed, double xSpeed, double zRotation) {
     driveTrain.driveCartesian(ySpeed, xSpeed, zRotation);
   }
