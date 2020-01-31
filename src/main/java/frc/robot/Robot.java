@@ -12,6 +12,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; // port 2
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX; 
+import edu.wpi.first.wpilibj.SpeedController;
+import frc.robot.commands.DriverOperated;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -22,6 +27,15 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private SpeedController backRightMotor = new WPI_TalonSRX(2);
+  private SpeedController backLeftMotor = new WPI_VictorSPX(3);
+  private SpeedController frontRightMotor = new WPI_VictorSPX(4);
+  private SpeedController frontLeftMotor = new WPI_VictorSPX(5);;
+
+  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
+
+  private DriverOperated teleOp = new DriverOperated(driveTrain);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -97,6 +111,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    teleOp.execute();
   }
 
   @Override
