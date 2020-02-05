@@ -11,12 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
 
-import edu.wpi.first.wpilibj.Gyro;
-
-import java.frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
 
-public class DriveUntil extends CommandBase {
+public class DriveUntilUltrasonic extends CommandBase {
   Ultrasonic ultrasonicSensor;
   double distanceInches;
   DriveTrainSubsystem driveTrain;
@@ -24,7 +22,7 @@ public class DriveUntil extends CommandBase {
   /**
    * Creates a new DriveInterrupt.
    */
-  public DriveUntil(Ultrasoniic ultrasonicSensor, double distanceInches, DriveTrainSubsystem driveTrain, double XSpeed) {
+  public DriveUntilUltrasonic(Ultrasonic ultrasonicSensor, double distanceInches, DriveTrainSubsystem driveTrain, double XSpeed) {
     this.ultrasonicSensor = ultrasonicSensor;
     this.distanceInches = distanceInches;
     this.driveTrain = driveTrain;
@@ -42,7 +40,7 @@ public class DriveUntil extends CommandBase {
 
     //implement logic 
     // IF sonic distance is higher than distanceInches, use DriveTrainSubsystem.drive() to drive the robot forwards
-    if (ultrasonicSensor.getDistanceInches() >= distanceInches) {
+    if (ultrasonicSensor.getRangeInches() >= distanceInches) {
       driveTrain.drive(XSpeed, 0, 0);
     }
     //ultrasonicSensor.getDistanceInches();
