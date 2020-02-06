@@ -33,11 +33,11 @@ public class DriverOperated extends CommandBase {
   @Override
   public void execute() {
 
-    double ySpeed = controller1.getRawAxis(5);
-    double xSpeed = controller1.getRawAxis(4);
-    double zRotation = controller1.getRawAxis(0);
+    double forwardSpeed = controller1.getRawAxis(5);
+    double horizontalSpeed = controller1.getRawAxis(4);
+    double rotation = controller1.getRawAxis(0);
 
-    driveTrain.drive(ySpeed, xSpeed, zRotation);
+    driveTrain.drive(horizontalSpeed, forwardSpeed, rotation);
   }
 
   // Called once the command ends or is interrupted.

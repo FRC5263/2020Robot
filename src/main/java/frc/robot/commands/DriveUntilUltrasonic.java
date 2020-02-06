@@ -9,12 +9,24 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveInterrupt extends CommandBase {
+import edu.wpi.first.wpilibj.Ultrasonic;
+
+import frc.robot.subsystems.DriveTrainSubsystem;
+
+
+public class DriveUntilUltrasonic extends CommandBase {
+  Ultrasonic ultrasonicSensor;
+  double distanceInches;
+  DriveTrainSubsystem driveTrain;
+  double XSpeed;
   /**
    * Creates a new DriveInterrupt.
    */
-  public DriveInterrupt() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveUntilUltrasonic(Ultrasonic ultrasonicSensor, double distanceInches, DriveTrainSubsystem driveTrain, double XSpeed) {
+    this.ultrasonicSensor = ultrasonicSensor;
+    this.distanceInches = distanceInches;
+    this.driveTrain = driveTrain;
+    this.XSpeed = XSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -25,6 +37,13 @@ public class DriveInterrupt extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    //implement logic 
+    // IF sonic distance is higher than distanceInches, use DriveTrainSubsystem.drive() to drive the robot forwards
+    if (ultrasonicSensor.getRangeInches() >= distanceInches) {
+      driveTrain.drive(XSpeed, 0, 0);
+    }
+    //ultrasonicSensor.getDistanceInches();
   }
 
   // Called once the command ends or is interrupted.

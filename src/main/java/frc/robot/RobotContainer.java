@@ -13,11 +13,9 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveTrainSubsystem;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.commands.DriverOperated;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX; 
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -34,9 +32,9 @@ public class RobotContainer {
 
 
   private SpeedController backRightMotor = new WPI_TalonSRX(2);
-  private SpeedController backLeftMotor = new WPI_VictorSPX(3);
-  private SpeedController frontRightMotor = new WPI_VictorSPX(4);
-  private SpeedController frontLeftMotor = new WPI_VictorSPX(5);;
+  private SpeedController backLeftMotor = new WPI_TalonSRX(3);
+  private SpeedController frontRightMotor = new WPI_TalonSRX(4);
+  private SpeedController frontLeftMotor = new WPI_TalonSRX(5);;
 
   private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
