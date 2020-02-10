@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SpeedController;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -73,6 +73,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    updatedashboard();
     // This method will be called once per scheduler run
+  }
+    public DriveTrainSubsystem() {
+      navx.reset();
+    }
+  protected void updatedashboard() {
+    SmartDashboard.putNumber("Back Left Encoder", backLeftEncoder.get());
+    SmartDashboard.putNumber("Back Right Encoder", backRightEncoder.get());
+    SmartDashboard.putNumber("Front Left Encoder", frontLeftEncoder.get());
+    SmartDashboard.putNumber("Front Right Encoder", frontRightEncoder.get());
   }
 }
