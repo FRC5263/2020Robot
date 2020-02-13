@@ -33,7 +33,7 @@ public class DriverOperated extends CommandBase {
   @Override
   public void execute() {
 
-    double forwardSpeed = controller1.getRawAxis(5);
+    double forwardSpeed = -controller1.getRawAxis(5);
     double horizontalSpeed = controller1.getRawAxis(4);
     double rotation = controller1.getRawAxis(0);
 
