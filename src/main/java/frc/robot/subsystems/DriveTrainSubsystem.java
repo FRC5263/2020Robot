@@ -80,9 +80,17 @@ public class DriveTrainSubsystem extends SubsystemBase {
       navx.reset();
     }
   protected void updatedashboard() {
-    SmartDashboard.putNumber("Back Left Encoder", backLeftEncoder.get());
-    SmartDashboard.putNumber("Back Right Encoder", backRightEncoder.get());
-    SmartDashboard.putNumber("Front Left Encoder", frontLeftEncoder.get());
-    SmartDashboard.putNumber("Front Right Encoder", frontRightEncoder.get());
+    if(backLeftEncoder != null) {
+      SmartDashboard.putNumber("Back Left Encoder", backLeftEncoder.get());
+    }
+    if(backRightEncoder != null){
+      SmartDashboard.putNumber("Back Right Encoder", backRightEncoder.get());
+    }
+    if(frontLeftEncoder != null){
+      SmartDashboard.putNumber("Front Left Encoder", frontLeftEncoder.get());
+    }
+    if(frontRightEncoder != null){
+      SmartDashboard.putNumber("Front Right Encoder", frontRightEncoder.get());
+    }
   }
 }

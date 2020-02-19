@@ -10,18 +10,22 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DriverOperated extends CommandBase {
 
   DriveTrainSubsystem driveTrain;
+  MotorSubsystem conveyor;
   Joystick controller1 = new Joystick(0);
+
   /**
    * Creates a new DriverOperated.
    */
-  public DriverOperated(DriveTrainSubsystem driveTrain) {
+  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
+    this.conveyor = conveyor;
   }
 
   // Called when the command is initially scheduled.
@@ -38,6 +42,16 @@ public class DriverOperated extends CommandBase {
     double rotation = controller1.getRawAxis(0);
 
     driveTrain.drive(horizontalSpeed, forwardSpeed, rotation);
+
+    int dpadDirection = controller1.getPOV();
+    if (dpadDirection == 0) {
+      conveyor.powerMotor(.30);
+    } else if (dpadDirection == 180) {
+      conveyor.powerMotor(-.30);
+    } else {
+      conveyor.powerMotor(0);
+    }
+
   }
 
   // Called once the command ends or is interrupted.

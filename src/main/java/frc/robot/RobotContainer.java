@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Wait;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.robot.commands.DriverOperated;
@@ -35,13 +36,15 @@ public class RobotContainer {
   private SpeedController backRightMotor = new WPI_TalonSRX(2);
   private SpeedController backLeftMotor = new WPI_TalonSRX(3);
   private SpeedController frontRightMotor = new WPI_TalonSRX(4);
-  private SpeedController frontLeftMotor = new WPI_TalonSRX(5);;
+  private SpeedController frontLeftMotor = new WPI_TalonSRX(5);
 
   private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
-  private DriverOperated m_teleOp = new DriverOperated(driveTrain);
-
-
+  
+  private SpeedController conveyorMotor;
+  private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
+  
+  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
