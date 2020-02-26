@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,7 +19,7 @@ public class DriverOperated extends CommandBase {
 
   DriveTrainSubsystem driveTrain;
   MotorSubsystem conveyor;
-  MotorSubsystem intake;
+  IntakeSubsystem intake;
   Joystick controller1 = new Joystick(0);
   Joystick controller2 = new Joystick(1);
 
@@ -26,7 +27,7 @@ public class DriverOperated extends CommandBase {
   /**
    * Creates a new DriverOperated.
    */
-  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, MotorSubsystem intake) {
+  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     this.conveyor = conveyor;
