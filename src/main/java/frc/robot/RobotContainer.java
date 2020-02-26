@@ -49,7 +49,7 @@ public class RobotContainer {
   private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
   
-  private SpeedController conveyorMotor;
+  private SpeedController conveyorMotor = new WPI_TalonSRX(6);
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
   
 

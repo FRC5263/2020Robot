@@ -52,7 +52,11 @@ public class DriverOperated extends CommandBase {
     //intake.powerMotor(intakeSpeed);
 
 
-    controller1.setRumble(RumbleType.kRightRumble, 1);
+    
+    double rightRumbleSet = controller1.getRawAxis(2);
+    double leftRumbleSet = controller1.getRawAxis(3);
+    controller1.setRumble(RumbleType.kRightRumble, rightRumbleSet);
+    controller1.setRumble(RumbleType.kLeftRumble, leftRumbleSet);
 
 
     int dpadDirection = controller1.getPOV();
