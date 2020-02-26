@@ -33,7 +33,8 @@ public class DriverOperated extends CommandBase {
     this.intake = intake;
   }
 
-  // Called when the command is initially scheduled.
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -47,7 +48,11 @@ public class DriverOperated extends CommandBase {
     driveTrain.drive(horizontalSpeed, forwardSpeed, rotation);
 
     //  dont know how we are using controller so fix that soon "double intakeSpeed = controller2.getRawAxis();""
-    intake.powerMotor(intakeSpeed);
+    //intake.powerMotor(intakeSpeed);
+
+
+    controller1.setRumble(RumbleType.kRightRumble, 1);
+
 
     int dpadDirection = controller1.getPOV();
     if (dpadDirection == 0) {

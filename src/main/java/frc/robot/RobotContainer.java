@@ -44,7 +44,7 @@ public class RobotContainer {
   private SpeedController conveyorMotor;
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
   
-  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor);
+  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, intake);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
