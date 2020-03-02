@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RoughAuton;
 import frc.robot.commands.Wait;
 import frc.robot.subsystems.DialSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -39,9 +40,6 @@ public class RobotContainer {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private DialSubsystem dialSubsystem = new DialSubsystem(m_colorSensor);
 
-  private final Command m_autoCommand = new Wait();
-
-
   private SpeedController backRightMotor = new WPI_TalonSRX(2);
   private SpeedController backLeftMotor = new WPI_TalonSRX(3);
   private SpeedController frontRightMotor = new WPI_TalonSRX(4);
@@ -49,6 +47,7 @@ public class RobotContainer {
 
   private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
+  private final Command m_autoCommand = new RoughAuton(driveTrain);
   
   private SpeedController conveyorMotor = new WPI_TalonSRX(6);
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
