@@ -56,6 +56,7 @@ public class DriverOperated extends CommandBase {
 
     
     double shooterTrigger = controller1.getRawAxis(2);
+    controller1.setRumble(RumbleType.kRightRumble, shooterTrigger);
 
     shooter.ShootBall(shooterTrigger);
 
