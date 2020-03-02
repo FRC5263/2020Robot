@@ -20,6 +20,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.SpeedController;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.DriverOperated;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
@@ -51,13 +52,17 @@ public class RobotContainer {
   
   private SpeedController conveyorMotor = new WPI_TalonSRX(6);
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
-  
+
+
+  private SpeedController shooterMotor1 = new WPI_TalonSRX(7);
+  private SpeedController shooterMotor2 = new WPI_TalonSRX(8);
+  private ShooterSubsystem shooter = new ShooterSubsystem(shooterMotor1, shooterMotor2);
 
 
   private AnalogInput ultraSonicInput = new AnalogInput(0);
   private IntakeSubsystem intake = new IntakeSubsystem(ultraSonicInput);
 
-  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, intake);
+  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, intake, shooter);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */

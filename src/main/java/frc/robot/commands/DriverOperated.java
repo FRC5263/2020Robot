@@ -13,6 +13,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DriverOperated extends CommandBase {
@@ -22,16 +23,17 @@ public class DriverOperated extends CommandBase {
   IntakeSubsystem intake;
   Joystick controller1 = new Joystick(0);
   Joystick controller2 = new Joystick(1);
-
+  ShooterSubsystem shooter;
 
   /**
    * Creates a new DriverOperated.
    */
-  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, IntakeSubsystem intake) {
+  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     this.conveyor = conveyor;
     this.intake = intake;
+    this.shooter = shooter;
   }
 
 
@@ -57,6 +59,8 @@ public class DriverOperated extends CommandBase {
     double leftRumbleSet = controller1.getRawAxis(3);
     controller1.setRumble(RumbleType.kRightRumble, rightRumbleSet);
     controller1.setRumble(RumbleType.kLeftRumble, leftRumbleSet);
+
+    shooter.ShootBall(rightRumbleSet);
 
 
     int dpadDirection = controller1.getPOV();
