@@ -55,12 +55,9 @@ public class DriverOperated extends CommandBase {
 
 
     
-    double rightRumbleSet = controller1.getRawAxis(2);
-    double leftRumbleSet = controller1.getRawAxis(3);
-    controller1.setRumble(RumbleType.kRightRumble, rightRumbleSet);
-    controller1.setRumble(RumbleType.kLeftRumble, leftRumbleSet);
+    double shooterTrigger = controller1.getRawAxis(2);
 
-    shooter.ShootBall(rightRumbleSet);
+    shooter.ShootBall(shooterTrigger);
 
 
     int dpadDirection = controller1.getPOV();
