@@ -21,16 +21,18 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.DriverOperated;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -40,12 +42,15 @@ public class RobotContainer {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private DialSubsystem dialSubsystem = new DialSubsystem(m_colorSensor);
 
+
   private SpeedController backRightMotor = new WPI_TalonSRX(2);
   private SpeedController backLeftMotor = new WPI_TalonSRX(3);
   private SpeedController frontRightMotor = new WPI_TalonSRX(4);
   private SpeedController frontLeftMotor = new WPI_TalonSRX(5);
 
-  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
+  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor,
+      frontLeftMotor);
+
 
   private final Command m_autoCommand = new RoughAuton(driveTrain);
   
@@ -58,8 +63,8 @@ public class RobotContainer {
   private ShooterSubsystem shooter = new ShooterSubsystem(shooterMotor1, shooterMotor2);
 
 
-  private AnalogInput ultraSonicInput = new AnalogInput(0);
-  private IntakeSubsystem intake = new IntakeSubsystem(ultraSonicInput);
+  private Ultrasonic ultraSonic = new Ultrasonic(0, 1);
+  private IntakeSubsystem intake = new IntakeSubsystem(ultraSonic);
 
   private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, intake, shooter);
   /**
