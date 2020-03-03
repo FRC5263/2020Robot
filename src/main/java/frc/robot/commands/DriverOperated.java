@@ -10,30 +10,34 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class DriverOperated extends CommandBase {
 
   DriveTrainSubsystem driveTrain;
   MotorSubsystem conveyor;
-  MotorSubsystem intake;
+  IntakeSubsystem intake;
   Joystick controller1 = new Joystick(0);
   Joystick controller2 = new Joystick(1);
-
+  ShooterSubsystem shooter;
 
   /**
    * Creates a new DriverOperated.
    */
-  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, MotorSubsystem intake) {
+  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     this.conveyor = conveyor;
     this.intake = intake;
+    this.shooter = shooter;
   }
 
-  // Called when the command is initially scheduled.
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -47,7 +51,15 @@ public class DriverOperated extends CommandBase {
     driveTrain.drive(horizontalSpeed, forwardSpeed, rotation);
 
     //  dont know how we are using controller so fix that soon "double intakeSpeed = controller2.getRawAxis();""
-    intake.powerMotor(intakeSpeed);
+    //intake.powerMotor(intakeSpeed);
+
+
+    
+    double shooterTrigger = controller1.getRawAxis(2);
+    controller1.setRumble(RumbleType.kRightRumble, shooterTrigger);
+
+    shooter.ShootBall(shooterTrigger);
+
 
     int dpadDirection = controller1.getPOV();
     if (dpadDirection == 0) {
