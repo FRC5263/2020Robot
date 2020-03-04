@@ -48,8 +48,7 @@ public class RobotContainer {
   private SpeedController frontRightMotor = new WPI_TalonSRX(4);
   private SpeedController frontLeftMotor = new WPI_TalonSRX(5);
 
-  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor,
-      frontLeftMotor);
+  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
 
   private final Command m_autoCommand = new RoughAuton(driveTrain);
@@ -57,16 +56,16 @@ public class RobotContainer {
   private SpeedController conveyorMotor = new WPI_TalonSRX(6);
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
 
+  private SpeedController intakeMotor = new WPI_TalonSRX(9);
+  private MotorSubsystem intake = new MotorSubsystem(intakeMotor);
+
 
   private SpeedController shooterMotor1 = new WPI_TalonSRX(7);
   private SpeedController shooterMotor2 = new WPI_TalonSRX(8);
   private ShooterSubsystem shooter = new ShooterSubsystem(shooterMotor1, shooterMotor2);
 
 
-  private Ultrasonic ultraSonic = new Ultrasonic(0, 1);
-  private IntakeSubsystem intake = new IntakeSubsystem(ultraSonic);
-
-  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, intake, shooter);
+  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, shooter, intake);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */

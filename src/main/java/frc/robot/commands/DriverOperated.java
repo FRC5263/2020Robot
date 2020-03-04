@@ -20,7 +20,7 @@ public class DriverOperated extends CommandBase {
 
   DriveTrainSubsystem driveTrain;
   MotorSubsystem conveyor;
-  IntakeSubsystem intake;
+  MotorSubsystem intake;
   Joystick controller1 = new Joystick(0);
   Joystick controller2 = new Joystick(1);
   ShooterSubsystem shooter;
@@ -28,7 +28,7 @@ public class DriverOperated extends CommandBase {
   /**
    * Creates a new DriverOperated.
    */
-  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, IntakeSubsystem intake, ShooterSubsystem shooter) {
+  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, ShooterSubsystem shooter, MotorSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     this.conveyor = conveyor;
@@ -50,18 +50,23 @@ public class DriverOperated extends CommandBase {
     double rotation = controller1.getRawAxis(0);
     driveTrain.drive(horizontalSpeed, forwardSpeed, rotation);
 
-    //  dont know how we are using controller so fix that soon "double intakeSpeed = controller2.getRawAxis();""
-    //intake.powerMotor(intakeSpeed);
-
+    double intakeSpeed = controller2.getRawAxis(3);
+    intake.powerMotor(intakeSpeed);
+    controller2.setRumble(RumbleType.kRightRumble, intakeSpeed);
 
     
-    double shooterTrigger = controller1.getRawAxis(2);
-    controller1.setRumble(RumbleType.kRightRumble, shooterTrigger);
-
+    double shooterTrigger = controller2.getRawAxis(2);
+    controller1.setRumble(RumbleType.kLeftRumble, shooterTrigger);
     shooter.ShootBall(shooterTrigger);
 
+    boolean intakeButton = controller2.getRawButton(6);
+    if(intakeButton) {
+      intake.powerMotor(1);
+      controller2.setRumble(RumbleType.kLeftRumble, 1);
+    }
 
-    int dpadDirection = controller1.getPOV();
+
+    int dpadDirection = controller2.getPOV();
     if (dpadDirection == 0) {
       conveyor.powerMotor(.30);
     } else if (dpadDirection == 180) {
