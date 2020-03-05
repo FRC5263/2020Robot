@@ -15,6 +15,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
  private SpeedController shootMotor1;
  private SpeedController shootMotor2;
+  private double speedMultiplier = 0.6;
 
 
   public ShooterSubsystem(SpeedController shootMotor1, SpeedController shootMotor2) {
@@ -23,8 +24,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void ShootBall(double shootPower) {
-    shootMotor1.set(shootPower);
-    shootMotor2.set(shootPower);
+    shootMotor1.set(-shootPower * speedMultiplier);
+    shootMotor2.set(shootPower * speedMultiplier);
   }
 
   @Override

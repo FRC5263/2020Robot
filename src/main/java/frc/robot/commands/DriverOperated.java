@@ -24,20 +24,22 @@ public class DriverOperated extends CommandBase {
   Joystick controller1 = new Joystick(0);
   Joystick controller2 = new Joystick(1);
   ShooterSubsystem shooter;
+  MotorSubsystem kicker;
 
   /**
    * Creates a new DriverOperated.
    */
-  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, ShooterSubsystem shooter, MotorSubsystem intake) {
+  public DriverOperated(DriveTrainSubsystem driveTrain, MotorSubsystem conveyor, ShooterSubsystem shooter,
+      MotorSubsystem intake, MotorSubsystem kicker) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     this.conveyor = conveyor;
     this.intake = intake;
     this.shooter = shooter;
+    this.kicker = kicker;
   }
 
-
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -45,32 +47,34 @@ public class DriverOperated extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // driving: left stick
     double forwardSpeed = controller1.getRawAxis(5);
     double horizontalSpeed = controller1.getRawAxis(4);
     double rotation = controller1.getRawAxis(0);
-    driveTrain.drive(horizontalSpeed, forwardSpeed, rotation);
+    driveTrain.drive(horizontalSpeed, -forwardSpeed, rotation);
 
-    double intakeSpeed = controller2.getRawAxis(3);
-    intake.powerMotor(intakeSpeed);
-    controller2.setRumble(RumbleType.kRightRumble, intakeSpeed);
+    double conveyorTrigger = controller2.getRawAxis(3);
+    controller2.setRumble(RumbleType.kRightRumble, conveyorTrigger);
+    conveyor.powerMotor(conveyorTrigger);
 
-    
     double shooterTrigger = controller2.getRawAxis(2);
-    controller1.setRumble(RumbleType.kLeftRumble, shooterTrigger);
+    controller2.setRumble(RumbleType.kLeftRumble, shooterTrigger);
     shooter.ShootBall(shooterTrigger);
 
     boolean intakeButton = controller2.getRawButton(6);
-    if(intakeButton) {
-      intake.powerMotor(1);
+    if (intakeButton) {
+      intake.powerMotor(-.3);
       controller2.setRumble(RumbleType.kLeftRumble, 1);
+    } else {
+      intake.powerMotor(0);
+      controller2.setRumble(RumbleType.kLeftRumble, 0);
     }
-
 
     int dpadDirection = controller2.getPOV();
     if (dpadDirection == 0) {
-      conveyor.powerMotor(.30);
+      conveyor.powerMotor(1);
     } else if (dpadDirection == 180) {
-      conveyor.powerMotor(-.30);
+      conveyor.powerMotor(-1);
     } else {
       conveyor.powerMotor(0);
     }

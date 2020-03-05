@@ -25,8 +25,9 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.DriverOperated;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.ColorSensorV3;
-
+import edu.wpi.first.wpilibj.VictorSP;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -43,29 +44,36 @@ public class RobotContainer {
   private DialSubsystem dialSubsystem = new DialSubsystem(m_colorSensor);
 
 
-  private SpeedController backRightMotor = new WPI_TalonSRX(2);
+  private SpeedController backRightMotor = new WPI_TalonSRX(5);
   private SpeedController backLeftMotor = new WPI_TalonSRX(3);
   private SpeedController frontRightMotor = new WPI_TalonSRX(4);
-  private SpeedController frontLeftMotor = new WPI_TalonSRX(5);
+  private SpeedController frontLeftMotor = new WPI_TalonSRX(2);
 
   private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
 
   private final Command m_autoCommand = new RoughAuton(driveTrain);
   
-  private SpeedController conveyorMotor = new WPI_TalonSRX(6);
+  private SpeedController conveyorMotor = new WPI_VictorSPX(10);
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
 
-  private SpeedController intakeMotor = new WPI_TalonSRX(9);
+  private SpeedController intakeMotor = new WPI_TalonSRX(7);
   private MotorSubsystem intake = new MotorSubsystem(intakeMotor);
 
 
-  private SpeedController shooterMotor1 = new WPI_TalonSRX(7);
-  private SpeedController shooterMotor2 = new WPI_TalonSRX(8);
+  private SpeedController shooterMotor1 = new WPI_VictorSPX(6);
+  private SpeedController shooterMotor2 = new VictorSP(0);
+  private SpeedController shooterDirectionMotor = new WPI_VictorSPX(9);
   private ShooterSubsystem shooter = new ShooterSubsystem(shooterMotor1, shooterMotor2);
+  
+
+  private SpeedController kickerMotor = new WPI_VictorSPX(8);
+  private MotorSubsystem kicker = new MotorSubsystem(kickerMotor);
 
 
-  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, shooter, intake);
+  // private MotorSubsystem dial = new MotorSubsystem(new VictorSP(1));
+
+  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, shooter, intake, kicker);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
