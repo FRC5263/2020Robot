@@ -21,6 +21,7 @@ public class DriverOperated extends CommandBase {
   DriveTrainSubsystem driveTrain;
   MotorSubsystem conveyor;
   MotorSubsystem intake;
+  MotorSubsystem pivot;
   Joystick controller1 = new Joystick(0);
   Joystick controller2 = new Joystick(1);
   ShooterSubsystem shooter;
@@ -51,15 +52,28 @@ public class DriverOperated extends CommandBase {
     double forwardSpeed = controller1.getRawAxis(5);
     double horizontalSpeed = controller1.getRawAxis(4);
     double rotation = controller1.getRawAxis(0);
-    driveTrain.drive(horizontalSpeed, -forwardSpeed, rotation);
-
+    
     double conveyorTrigger = controller2.getRawAxis(3);
     controller2.setRumble(RumbleType.kRightRumble, conveyorTrigger);
     conveyor.powerMotor(conveyorTrigger);
-
+    
     double shooterTrigger = controller2.getRawAxis(2);
     controller2.setRumble(RumbleType.kLeftRumble, shooterTrigger);
     shooter.ShootBall(shooterTrigger);
+
+    double aim = controller2.getRawAxis(1);
+    shooter.Aim(aim);
+    controller2.setRumble(RumbleType.kRightRumble, shooterTrigger);
+    
+    
+    //Slow down driving controls
+    boolean slowButton = controller1.getRawButton(2);
+    Double slowDownFactor = .3;
+    if(slowButton){
+      driveTrain.drive(slowDownFactor * horizontalSpeed, slowDownFactor * -forwardSpeed, slowDownFactor * rotation);
+    }else{
+      driveTrain.drive(horizontalSpeed, -forwardSpeed, rotation);
+    }
 
     boolean intakeButton = controller2.getRawButton(6);
     if (intakeButton) {

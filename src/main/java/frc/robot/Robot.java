@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_teleOp;
+  private Command roughAuton;
 
   private RobotContainer m_robotContainer;
 
@@ -30,6 +33,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    UsbCamera cam = new UsbCamera("Camera", 1);
+    CameraServer camera = CameraServer.getInstance();
+    camera.startAutomaticCapture(cam);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
@@ -47,6 +53,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
+    CameraServer camera; 
+    camera.
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -80,7 +89,7 @@ public class Robot extends TimedRobot {
 
   /**
    * This autonomous runs the autonomous command selected by your
-   * {@link RobotContainer} class.
+   * {@link RobotContainer}s class.
    */
   @Override
   public void autonomousInit() {

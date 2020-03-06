@@ -15,17 +15,23 @@ public class ShooterSubsystem extends SubsystemBase {
 
  private SpeedController shootMotor1;
  private SpeedController shootMotor2;
+ private SpeedController pivot;
   private double speedMultiplier = 0.6;
 
 
-  public ShooterSubsystem(SpeedController shootMotor1, SpeedController shootMotor2) {
+  public ShooterSubsystem(SpeedController shootMotor1, SpeedController shootMotor2, SpeedController pivot) {
     this.shootMotor1 = shootMotor1;
+    this.pivot = pivot;
     this.shootMotor2 = shootMotor2;
   }
 
   public void ShootBall(double shootPower) {
     shootMotor1.set(-shootPower * speedMultiplier);
     shootMotor2.set(shootPower * speedMultiplier);
+  }
+
+  public void Aim(double power) {
+    pivot.set(power * speedMultiplier);
   }
 
   @Override

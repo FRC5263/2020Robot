@@ -52,7 +52,6 @@ public class RobotContainer {
   private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
 
 
-  private final Command m_autoCommand = new RoughAuton(driveTrain);
   
   private SpeedController conveyorMotor = new WPI_VictorSPX(10);
   private MotorSubsystem conveyor = new MotorSubsystem(conveyorMotor);
@@ -64,13 +63,14 @@ public class RobotContainer {
   private SpeedController shooterMotor1 = new WPI_VictorSPX(6);
   private SpeedController shooterMotor2 = new VictorSP(0);
   private SpeedController shooterDirectionMotor = new WPI_VictorSPX(9);
-  private ShooterSubsystem shooter = new ShooterSubsystem(shooterMotor1, shooterMotor2);
+  private ShooterSubsystem shooter = new ShooterSubsystem(shooterMotor1, shooterMotor2, shooterDirectionMotor);
   
 
   private SpeedController kickerMotor = new WPI_VictorSPX(8);
   private MotorSubsystem kicker = new MotorSubsystem(kickerMotor);
 
-
+  private final Command m_autoCommand = new RoughAuton(driveTrain, conveyor, shooter, intake);
+  
   // private MotorSubsystem dial = new MotorSubsystem(new VictorSP(1));
 
   private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, shooter, intake, kicker);
