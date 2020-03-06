@@ -47,12 +47,12 @@ public class RoughAuton extends CommandBase {
   @Override
   public void execute() {
           // Drive for 2 seconds
-    if (m_timer.get() < 5.0) {
+    if (m_timer.get() < 2.5) {
         driveTrainSubsystem.drive(0, 0.5, 0); // drive forwards half speed
       } else {
         driveTrainSubsystem.drive(0, 0, 0); // stop robot
       }
-      conveyor.powerMotor(.5);
+    conveyor.powerMotor(.5);
     shooter.ShootBall(.8);
 
   }

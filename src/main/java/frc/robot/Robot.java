@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -33,9 +36,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    UsbCamera cam = new UsbCamera("Camera", 1);
-    CameraServer camera = CameraServer.getInstance();
-    camera.startAutomaticCapture(cam);
+    CameraServer.getInstance().startAutomaticCapture();
+    UsbCamera usbCam = new UsbCamera("USB Camera 1", 1);
+    MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 1", 1181);
+    mjpegServer1.setSource(usbCam);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
@@ -53,9 +57,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
-    CameraServer camera; 
-    camera.
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
