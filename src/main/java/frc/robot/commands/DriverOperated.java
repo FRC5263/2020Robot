@@ -87,6 +87,7 @@ public class DriverOperated extends CommandBase {
     int dpadDirection = controller2.getPOV();
     if (dpadDirection == 0) {
       conveyor.powerMotor(1);
+      shooter.ShootBall(1);
     } else if (dpadDirection == 180) {
       conveyor.powerMotor(-1);
     } else {
