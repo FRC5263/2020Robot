@@ -28,6 +28,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.VictorSP;
+import com.kauailabs.navx.frc.AHRS;
+import frc.robot.commands.GyroDriverOperated;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -49,7 +51,10 @@ public class RobotContainer {
   private SpeedController frontRightMotor = new WPI_TalonSRX(4);
   private SpeedController frontLeftMotor = new WPI_TalonSRX(2);
 
-  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor);
+  private AHRS navx = new AHRS();
+
+
+  private DriveTrainSubsystem driveTrain = new DriveTrainSubsystem(backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor, navx);
 
 
   
@@ -72,8 +77,8 @@ public class RobotContainer {
   private final Command m_autoCommand = new RoughAuton(driveTrain, conveyor, shooter, intake);
   
   // private MotorSubsystem dial = new MotorSubsystem(new VictorSP(1));
-
-  private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, shooter, intake, kicker);
+  // private DriverOperated m_teleOp = new DriverOperated(driveTrain, conveyor, shooter, intake, kicker);
+  private GyroDriverOperated m_teleOp = new GyroDriverOperated(driveTrain, conveyor, shooter, intake, kicker);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
