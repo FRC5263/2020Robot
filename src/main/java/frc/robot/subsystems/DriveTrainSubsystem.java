@@ -40,6 +40,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private SpeedController frontRightMotor;
   private SpeedController frontLeftMotor;
 
+  private double correctAngle = 0; 
+
   private static final double wheelDiameterInches = 6.0;
   private final static double encoderClicksPerRevolution = 360;
 
@@ -76,8 +78,47 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+
+  public DriveTrainSubsystem(SpeedController backRightMotor, SpeedController backLeftMotor,
+      SpeedController frontRightMotor, SpeedController frontLeftMotor, AHRS navx) {
+    this.backRightMotor = backRightMotor;
+    this.backLeftMotor = backLeftMotor;
+    this.frontLeftMotor = frontLeftMotor;
+    this.frontRightMotor = frontRightMotor;
+    this.navx = navx;
+    this.driveTrain = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+
+    System.out.println("drivetrain subsystem intalized");
+
+  }
+
   public void drive(double horizontalSpeed, double forwardSpeed, double rotation) {
     driveTrain.driveCartesian(horizontalSpeed, forwardSpeed, rotation);
+  }
+
+  public void setCorrectionAngle(double angle) {
+    correctAngle = angle;
+  }
+
+
+  public void driveCorrected(double horizontalSpeed, double forwardSpeed, double rotation) {
+        // GYRO CALCULATIONS
+
+    // if POSITIVE -> turned to the left
+    // if NEGATIVE -> turned to the right
+    double gyroError = correctAngle - this.getGyroAngle();
+    
+    double rotationCorrection = 0;
+
+    // if driver is trying to rotate 
+    if (Math.abs(rotation) > 0.09) { 
+      correctAngle = this.getGyroAngle();
+      rotationCorrection = 0;
+    } else {
+      rotationCorrection = gyroError / 50;
+    }
+
+    this.drive(horizontalSpeed, forwardSpeed, rotation + rotationCorrection);
   }
 
   @Override
@@ -86,9 +127,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public DriveTrainSubsystem() {
-    navx.reset();
+
+  public double getGyroAngle() {
+    if (navx != null) {
+      return navx.getAngle();
+    } else {
+      return -1;
+    }
   }
+
+  // -------------------------------------------------------------------------
 
   protected void updatedashboard() {    
     if (frontLeftEncoder != null) {
@@ -102,6 +150,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
     if (backRightEncoder != null) {
       SmartDashboard.putNumber("Back Right Encoder", backRightEncoder.get());
+    }
+    if (navx != null) {
+      SmartDashboard.putNumber("Gyro Angle", navx.getAngle());
     }
   }
 //Need to find out how many meters per second the chassis goes
